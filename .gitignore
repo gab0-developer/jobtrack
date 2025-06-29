@@ -1,0 +1,7 @@
+# Ignorar archivos de Node.js
+node_modules/
+.env
+/dist
+# Ignorar archivos de IDE
+.vscode/
+.idea/
