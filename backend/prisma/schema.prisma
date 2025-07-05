@@ -29,9 +29,9 @@ model status {
 
 model users {
   id           Int            @id @default(autoincrement())
-  name         String?        @db.VarChar
-  email        String?        @unique @db.VarChar
-  password     String?        @db.VarChar
+  name         String         @db.VarChar  // <- Sin "?"
+  email        String         @unique @db.VarChar
+  password     String         @db.VarChar
   created_at   DateTime?      @db.Timestamp(6)
   postulations postulations[]
 }
