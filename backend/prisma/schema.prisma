@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model postulations {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  status_id  Int?
+  job_title  String?   @db.VarChar
+  company    String?   @db.VarChar
+  position   String?   @db.VarChar
+  link       String?   @db.VarChar
+  created_at DateTime? @db.Timestamp(6)
+  status     status?   @relation(fields: [status_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_postulations_status_id_status_id")
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_postulations_user_id_users_id")
+}
+
+model status {
+  id           Int            @id @default(autoincrement())
+  status_name  String?        @db.VarChar
+  created_at   DateTime?      @db.Timestamp(6)
+  postulations postulations[]
+}
+
+model users {
+  id           Int            @id @default(autoincrement())
+  name         String?        @db.VarChar
+  email        String?        @unique @db.VarChar
+  password     String?        @db.VarChar
+  created_at   DateTime?      @db.Timestamp(6)
+  postulations postulations[]
+}
