@@ -1,0 +1,89 @@
+/* Estilo base para el contenedor principal */
+.conteiner-login {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+}
+
+/* Efecto Glass */
+.container-form {
+    background: rgba(15, 20, 27, 0.425); /* Fondo semitransparente oscuro */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.36),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
+}
+.container-form .logo-form{
+    color: #524ab4;
+}
+.container-form .title-form{
+    color: #c7c2ff;
+    margin: 0.5rem 0;
+}
+
+/* Estilo para los inputs (sobrescribiendo Material-UI) */
+.container-form .MuiTextField-root {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.container-form .MuiInputBase-input {
+    color: #fff !important;
+}
+
+.container-form .MuiInputLabel-root {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.container-form .MuiInput-underline:before {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Estilo para el botón */
+.container-form .MuiButton-contained {
+    width: 100%;
+    padding: 10px;
+    margin-top: 1rem;
+    background: rgba(34, 17, 17, 0.2) !important;
+    border: 1px solid rgba(45, 13, 51, 0.3) !important;
+    color: white !important;
+    font-weight: bold !important;
+    transition: all 0.3s ease !important;
+}
+
+.container-form .MuiButton-contained:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+/* Estilo para el título */
+.container-form + div h5 {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el enlace de login */
+#link-login p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 1.5rem;
+}
+
+#link-login a {
+    transition: all 0.3s ease;
+}
+
+#link-login a:hover {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
