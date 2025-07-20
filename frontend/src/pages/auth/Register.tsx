@@ -10,10 +10,13 @@ import './style-login.css'
 import Container from '@mui/material/Container'
 import Typography from "@mui/material/Typography";
 
+import { useNavigate } from "react-router-dom";
 
 type Props = {}
 
 const Register = ({}: Props) => {
+    const navigate = useNavigate();
+
   const [name,setName] = useState<string>('')
   const [email,setEmail] = useState<string>('')
   const [password,setPassword] = useState<string>('')
@@ -34,27 +37,38 @@ const Register = ({}: Props) => {
             }
         });
 
-      const resp_data = await resp.data
-      console.log('resp_data: ',resp_data)
+        if (resp.status == 201 && resp.statusText == "Created") {
+            const resp_data = await resp.data
+            console.log(resp_data.message)
+            
+            navigate('/login');
+            console.log('registro exitoso')
+        }else{
+            console.log(`Ha ocurrido un error inesperado`)
+            return 
+        }
      
       
     } catch (error) {
-      console.log('ERROR DE RUTA: ' + error)
+        if (axios.isAxiosError(error)) {
+        // Manejo específico de errores de Axios
+            if (error.response) {
+                const dataError = error.response
+                if (dataError.data.success === false) {
+                    
+                    console.log(dataError.data.message)
+                }
+            }
+        }
     }
   }
-
 
   const handleRegister = (e:any) =>{
     e.preventDefault()
-    const obj_data = {
-      name,
-      email,
-      password
-    }
-    console.log(obj_data)
     getAxios()
-    console.log('Registro exitoso')
   }
+
+
   return (
     <>
         <Container maxWidth="xl" className="conteiner-login">
