@@ -1,19 +1,12 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-interface ProtectedRoutersProps {
-    children?: React.ReactNode;
-    user: {
-        name: string | null;
-        password?: string | null; // Opcional si no siempre está presente
-    };
-    redirectTo?: string;
-}
+export const ProtectedRouters = () => {
+  const { user, loading } = useAuth();
 
-export const ProtectedRouters = ({ children, user, redirectTo = "/login" }: ProtectedRoutersProps) => {
-    if (!user || !user.name) {
-        return <Navigate to={redirectTo} replace />;
-    }
-    
-    return children ? children : <Outlet />;
+  if (loading) {
+    return <div>Cargando...</div>; // Muestra un loader mientras verifica
+  }
+
+  return user ? <Outlet /> : <Navigate to="/login" replace />;
 };
-
