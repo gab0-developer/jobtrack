@@ -1,8 +1,16 @@
 import { useState,Fragment, useRef, useEffect } from "react";
-import { Box, Button , TextField } from '@mui/material';
+import { Autocomplete, Box, Button , TextField } from '@mui/material';
+
+import { format, parseISO } from 'date-fns';
+// import { es } from 'date-fns/locale';
 
 import { useNavigate } from 'react-router-dom';
-import { putAxios } from "../../hooks/axiosApi";
+import { getAxios, putAxios } from "../../hooks/axiosApi";
+
+interface StatusItem {
+  id: number;
+  status_name: string;
+} 
 
 type Props = {
     id:number,
@@ -37,15 +45,17 @@ const UpdateJob = ({
   const [localPosition,setlocalPosition] = useState<string>(propPosition || '')
   const [localLink,setLocalLink] = useState<string>(propLink || '')
   const [localCompany, setLocalCompany] = useState<string>(propCompany || '');
+  const [listStatus, setListStatus] = useState<StatusItem[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<StatusItem | null>(null);
 
 //   const url = `${API_URL}/job/${id}`
   const obj_data = {
-    status_id:1,
+    status_id:selectedStatus?.id,
     job_title: jobTitle,
     company:localCompany,
     position:localPosition,
     link:localLink,
-    id:id,
+    // id:id,
   }
 
   const handleUpdate = (e:any) =>{
@@ -53,14 +63,26 @@ const UpdateJob = ({
     putAxios(`/job/${id}`,obj_data,navigate,refreshPostulations)
     handleCloseDialogUpdate()
     console.log('obj_data',obj_data)
-    // DeleteAxios(`/job/${postulationID}`,navigate,refreshPostulations)
   }
+
+  useEffect(() =>{
+      getAxios(`/status/`,setListStatus,navigate)
+  },[])
+
+ // indicar estado actual cuando la lista esté cargada
+  useEffect(() => {
+    if (listStatus.length > 0 && propStatus) {
+      // Convertir propStatus a número si es necesario
+      const statusId = typeof propStatus === 'string' ? parseInt(propStatus) : propStatus;
+      const currentStatus = listStatus.find(item => item.id === statusId);
+      setSelectedStatus(currentStatus || null);
+    }
+  }, [listStatus, propStatus]);
 
 
 
   return (
     <>
-    
         <Box component='div' key={id}>
             <Box component='form' className="form" onSubmit={handleUpdate}>
                 <TextField
@@ -109,12 +131,54 @@ const UpdateJob = ({
                     
                     type="text"
                     id="input"
-                    label="link de postulación"
+                    label="Estatus"
                     value={localStatus}    
                     onChange={(e) => {setLocalStatus(e.target.value)}}
                     variant="standard"
                 
                 />
+                <TextField
+                    
+                    type="date"
+                    id="input"
+                    label="Fecha de postulación"
+                    value={format(parseISO(created_at), "yyyy-MM-dd")}    
+                    // onChange={(e) => {setLocalStatus(e.target.value)}}
+                    variant="filled"
+                    InputProps={{
+                      readOnly: true, // Bloquea cambios pero mantiene el estilo normal
+                    }}
+                />
+
+                <Autocomplete 
+                        id="autocomplete" 
+                        options={listStatus}
+                        value={selectedStatus}
+                        onChange={(e, newValue: StatusItem | null) => {
+                          setSelectedStatus(newValue);
+                        }}
+                        getOptionLabel={(option) => option.status_name}
+                        renderInput={(params) => <TextField {...params} label="Estatus" variant="outlined" />}
+                      />
+{/* 
+                 <Autocomplete
+                    id="status-select"
+                    options={listStatus}
+                    value={selectedStatus}
+                    onChange={(_, newValue) => setSelectedStatus(newValue)}
+                    getOptionLabel={(option) => option.status_name}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Estado actual"
+                        variant="outlined"
+                        fullWidth
+                        
+                      />
+                    )}
+                  /> */}
+
                 
                 <Box component='div' sx={{mt:1}}>
                     <Button type="submit" id="sumit" variant="contained">Guardar</Button>
