@@ -10,12 +10,13 @@ import { Box, Button , TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../../api/application";
 import axios from "axios";
+import { postAxios } from "../../hooks/axiosApi";
 
 type Props = {
-  onPostulationCreated?: () => void;
+  refreshPostulations: () => void;
 };
 
-const RegisterJob = ({onPostulationCreated}: Props) => {
+const RegisterJob = ({refreshPostulations}: Props) => {
   
   const navigate = useNavigate();
 
@@ -27,64 +28,19 @@ const RegisterJob = ({onPostulationCreated}: Props) => {
   const [company,setCompany] = useState<string>('')
   const [position,setPosition] = useState<string>('')
   const [link,setLink] = useState<string>('')
-
-  const postAxios = async () =>{
-    const url = `${API_URL}/job/`
-    const obj_data = {
-      status_id:1,
-      job_title: jobtitle,
-      company,
-      position,
-      link,
-      token: localStorage.getItem('authToken')
-    }
-    console.log(obj_data)
-
-    try {
-        const resp = await axios.post(url,obj_data, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}` // Opcional
-            }
-        });
-
-        if (resp.status == 201 && resp.statusText == "Created") {
-            const resp_data = await resp.data
-            onPostulationCreated?.(); // Llama al callback después de crear
-            // setPostulations((postulations) => [...postulations, obj_data])
-            // Convierte el objeto a string (poco recomendado)
-            // setPostulations(prev => [...prev, JSON.stringify(obj_data)]);
-            console.log(resp_data.message)
-            
-            console.log('registro exitoso')
-        }else{
-            console.log(`Ha ocurrido un error inesperado`)
-            return 
-        }
-
-    
-    
-    } catch (error) {
-        if (axios.isAxiosError(error)) {
-        // Manejo específico de errores de Axios
-            if (error.response) {
-                const dataError = error.response
-                if (dataError.data.success === false) {
-                    
-                    console.log(dataError.data.message)
-                }
-                if (dataError.data.status === 401) {
-                    // Manejo de token expirado
-                    navigate('/login');
-                }
-            }
-        }
-    }
+  
+  const obj_data = {
+    status_id:1,
+    job_title: jobtitle,
+    company,
+    position,
+    link,
+    token: localStorage.getItem('authToken')
   }
 
   const handleRegister = (e:any) =>{
     e.preventDefault()
-    postAxios()
+    postAxios(`/job/`,obj_data,navigate,refreshPostulations)
   }
 
   return (
