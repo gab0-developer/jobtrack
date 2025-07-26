@@ -13,10 +13,18 @@ import { CardContent } from '@mui/material';
 // ICONS 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { getAxios } from '../hooks/axiosApi';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
+
+interface StatusItem {
+  id: number;
+  status_name: string;
+} 
 
 
 
@@ -57,7 +65,27 @@ type Props = {
 
 
 
+
+
 const Tarjetas = ({index,primeraLetra,job_title,created_at,company,status,handleOpenDialogDelete,handleOpenDialogUpdate}: Props) => {
+
+  const navigate = useNavigate();
+
+  const [listStatus, setListStatus] = useState<StatusItem[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<StatusItem | null>(null);
+
+  useEffect(() =>{
+    getAxios(`/status/`,setListStatus,navigate)
+  },[])
+
+  useEffect(() => {
+      if (listStatus.length > 0 && status) {
+        // Convertir status a número si es necesario
+        const statusId = typeof status === 'string' ? parseInt(status) : status;
+        const currentStatus = listStatus.find(item => item.id === statusId);
+        setSelectedStatus(currentStatus || null);
+      }
+    }, [listStatus, status]);
 
     const ExpandMore = styled((props: ExpandMoreProps) => {
     const { expand, ...other } = props;
@@ -116,7 +144,7 @@ const Tarjetas = ({index,primeraLetra,job_title,created_at,company,status,handle
                         <strong>Compañia o empresa aplicada: </strong>{company}
                     </Typography>
                     <Typography variant="caption" gutterBottom>
-                        <strong>Estatus: </strong>{status}
+                        <strong>Estatus: </strong>{selectedStatus?.status_name}
                     </Typography>
                 </CardContent>
             </Card>
