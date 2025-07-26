@@ -3,6 +3,7 @@ import cors from 'cors';
 import {config} from "dotenv";
 import authRoutes from './routes/authRoutes'
 import jobRoutes from './routes/jobRoutes'
+import statusRoutes from './routes/statusRoutes'
 
 config()
 const app = express()
@@ -19,5 +20,6 @@ app.use(express.json()) //para poner el cuerpo json
 // declarar las rutas:   
 app.use('/auth',authRoutes)
 app.use('/job',jobRoutes)
+app.use('/status',statusRoutes)
 
 export default app
