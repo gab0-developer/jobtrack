@@ -25,6 +25,8 @@ import UpdateJob from './UpdateJob';
 interface Postulation {
   id: number;
   job_title: string;
+  position: string;
+  link: string;
   created_at:string
   company: string;
   status_id: string;
@@ -86,6 +88,7 @@ const index = ({}: Props) => {
     };
     const handleCloseDialogUpdate = () => {
       setOpenDialogUpdate(false);
+      setSelectedPostulation(null);
     };
     const handleCloseDialog = () => {
       setOpenDialogDelete(false);
@@ -129,7 +132,7 @@ const index = ({}: Props) => {
                     onClose={handleCloseDialogUpdate}
                     aria-describedby="alert-dialog-slide-description"
                     >
-                    <DialogTitle>{"Estas seguro de eliminación?"}</DialogTitle>
+                    <DialogTitle>{"Modificar Postulación"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
                              {selectedPostulation ? (
