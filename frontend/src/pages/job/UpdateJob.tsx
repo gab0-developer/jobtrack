@@ -129,16 +129,6 @@ const UpdateJob = ({
                 />
                 <TextField
                     
-                    type="text"
-                    id="input"
-                    label="Estatus"
-                    value={localStatus}    
-                    onChange={(e) => {setLocalStatus(e.target.value)}}
-                    variant="standard"
-                
-                />
-                <TextField
-                    
                     type="date"
                     id="input"
                     label="Fecha de postulación"

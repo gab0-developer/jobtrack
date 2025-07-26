@@ -64,7 +64,6 @@ const index = ({}: Props) => {
 
      // Función para refrescar las postulaciones
     const refreshPostulations =  async () => {
-        // await getAxios(); // Reutiliza tu función existente
         await getAxios(`/job/`,setPostulations,navigate)
     };
 
@@ -154,17 +153,13 @@ const index = ({}: Props) => {
                             
                         </DialogContentText>
                     </DialogContent>
-                    {/* <DialogActions>
-                        <Button variant='contained' color='error' onClick={handleCloseDialogUpdate}>cancelar</Button>
-                        <Button variant='contained' color='success' onClick={() => deletePostulation()}>Eliminar</Button>
-                    </DialogActions> */}
                 </Dialog>
             </React.Fragment>
             
         
             
            <RegisterJob
-                onPostulationCreated={refreshPostulations}
+                refreshPostulations={refreshPostulations}
              />
            
             <Box component='div' sx={{display:'flex',alignItems:'center',justifyContent:'space-around',flexWrap:'wrap',marginY:2}}>
