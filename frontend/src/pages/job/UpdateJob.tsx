@@ -1,4 +1,4 @@
-import { useState,Fragment, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Autocomplete, Box, Button , TextField } from '@mui/material';
 
 import { format, parseISO } from 'date-fns';
@@ -40,7 +40,6 @@ const UpdateJob = ({
   const navigate = useNavigate();
 
 
-  const [localStatus, setLocalStatus] = useState<string>(propStatus || '');
   const [jobTitle, setJobTitle] = useState<string>(job_title || '');
   const [localPosition,setlocalPosition] = useState<string>(propPosition || '')
   const [localLink,setLocalLink] = useState<string>(propLink || '')
@@ -133,7 +132,6 @@ const UpdateJob = ({
                     id="input"
                     label="Fecha de postulación"
                     value={format(parseISO(created_at), "yyyy-MM-dd")}    
-                    // onChange={(e) => {setLocalStatus(e.target.value)}}
                     variant="filled"
                     InputProps={{
                       readOnly: true, // Bloquea cambios pero mantiene el estilo normal

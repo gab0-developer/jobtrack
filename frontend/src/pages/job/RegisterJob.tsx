@@ -8,8 +8,6 @@ import DialogContent from '@mui/joy/DialogContent';
 import { Box, Button , TextField } from '@mui/material';
 
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from "../../api/application";
-import axios from "axios";
 import { postAxios } from "../../hooks/axiosApi";
 
 type Props = {
