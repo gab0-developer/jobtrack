@@ -16,7 +16,6 @@ function App() {
         <ToastContainer />
         <Rutas />
       </Router>
-      {/* <Register /> */}
     </>
   )
 }

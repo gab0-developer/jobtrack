@@ -1,12 +1,14 @@
 import { useAuth } from '../context/AuthContext';
 import { Button } from '@mui/material';
 
-// import {Dashboard as DasboahTemplate} from '../templates/dashboard/Dashboard';
+
 
 type Props = {}
 
-const Dashboard = ({}: Props) => {
+const Dashboard = ({}:Props) => {
+
   const { user,logout } = useAuth();
+
 
   return (
     <>
@@ -18,6 +20,8 @@ const Dashboard = ({}: Props) => {
       >
         Cerrar sesión
       </Button>
+    
+
     </>
   )
 }

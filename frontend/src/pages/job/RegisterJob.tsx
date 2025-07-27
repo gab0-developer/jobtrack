@@ -1,12 +1,5 @@
-import { useState,Fragment, useRef } from "react";
-import { Transition } from 'react-transition-group';
-import JoyButton  from '@mui/joy/Button';
-import Modal from '@mui/joy/Modal';
-import ModalDialog from '@mui/joy/ModalDialog';
-import DialogTitle from '@mui/joy/DialogTitle';
-import DialogContent from '@mui/joy/DialogContent';
-import { Box, Button , TextField } from '@mui/material';
-
+import { useState } from "react";
+import { Box, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { postAxios } from "../../hooks/axiosApi";
 
@@ -20,7 +13,6 @@ const RegisterJob = ({refreshPostulations}: Props) => {
 
 
   const [open, setOpen] = useState<boolean>(false);
-  const nodeRef = useRef(null);
 
   const [jobtitle,setJobtitle] = useState<string>('')
   const [company,setCompany] = useState<string>('')
@@ -39,105 +31,31 @@ const RegisterJob = ({refreshPostulations}: Props) => {
   const handleRegister = (e:any) =>{
     e.preventDefault()
     postAxios(`/job/`,obj_data,navigate,refreshPostulations)
+    setOpen(false); 
   }
 
   return (
     <>
     
-      <Fragment>
-      <JoyButton variant="outlined" color="neutral" onClick={() => setOpen(true)}>
-        Open modal
-      </JoyButton>
-      <Transition nodeRef={nodeRef} in={open} timeout={400}>
-        {(state: string) => (
-          <Modal
-            ref={nodeRef}
-            keepMounted
-            open={!['exited', 'exiting'].includes(state)}
-            onClose={() => setOpen(false)}
-            slotProps={{
-              backdrop: {
-                sx: {
-                  opacity: 0,
-                  backdropFilter: 'none',
-                  transition: `opacity 400ms, backdrop-filter 400ms`,
-                  ...{
-                    entering: { opacity: 1, backdropFilter: 'blur(8px)' },
-                    entered: { opacity: 1, backdropFilter: 'blur(8px)' },
-                  }[state],
-                },
-              },
-            }}
-            sx={[
-              state === 'exited'
-                ? { visibility: 'hidden' }
-                : { visibility: 'visible' },
-            ]}
-          >
-            <ModalDialog
-              sx={{
-                opacity: 0,
-                transition: `opacity 300ms`,
-                ...{
-                  entering: { opacity: 1 },
-                  entered: { opacity: 1 },
-                }[state],
-              }}
-            >
-              <DialogTitle sx={{display:'flex',alignItems:'center',justifyContent:'center'}} >Registrar postulación profesional</DialogTitle>
-              <DialogContent>
-                <Box component='div' >
-                    <Box component='form' className="form" onSubmit={handleRegister}>
-                      <TextField
-                        type="text"
-                        id="input"
-                        label="titulo"
-                        value={jobtitle}    
-                        onChange={(e) => {setJobtitle(e.target.value)}}
-                        variant="standard"
-                    
-                      />
-                      <TextField
-                          type="text"
-                          id="input"
-                          label="Compañia/empresa"
-                          value={company}    
-                          onChange={(e) => {setCompany(e.target.value)}}
-                          variant="standard"
-                      
-                      />
-                      
-                      <TextField
-                          type="text"
-                          id="input"
-                          label="Puesto profesional"
-                          value={position}    
-                          onChange={(e) => {setPosition(e.target.value)}}
-                          variant="standard"
-                      
-                      />
-                      
-                      <TextField
-                          type="text"
-                          id="input"
-                          label="link de postulación"
-                          value={link}    
-                          onChange={(e) => {setLink(e.target.value)}}
-                          variant="standard"
-                      
-                      />
-                      
-                      <Button type="submit" id="sumit" variant="contained">Guardar</Button>
+      <Button variant="outlined" onClick={() => setOpen(true)}>
+        Registrar postulación
+      </Button>
 
-                    </Box>
-                </Box>
-              </DialogContent>
-            </ModalDialog>
-          </Modal>
-        )}
-      </Transition>
-      </Fragment>
-
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>Registrar postulación profesional</DialogTitle>
+        <DialogContent>
+          <Box component="form" onSubmit={handleRegister} sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+            <TextField label="Título" value={jobtitle} onChange={(e) => setJobtitle(e.target.value)} variant="standard" />
+            <TextField label="Compañía/empresa" value={company} onChange={(e) => setCompany(e.target.value)} variant="standard" />
+            <TextField label="Puesto profesional" value={position} onChange={(e) => setPosition(e.target.value)} variant="standard" />
+            <TextField label="Link de postulación" value={link} onChange={(e) => setLink(e.target.value)} variant="standard" />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} color="error">Cancelar</Button>
+          <Button type="submit" onClick={handleRegister} color="primary">Guardar</Button>
+        </DialogActions>
+      </Dialog>
 
     </>
   )
