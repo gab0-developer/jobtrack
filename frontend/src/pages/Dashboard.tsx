@@ -90,10 +90,9 @@ const Dashboard = ({}:Props) => {
 
       <Container maxWidth="xl">
         <Box component='div'>
-          <Typography variant='h4' >
-            Postulaciones:
+          <Typography variant='h4' sx={{marginTop:2, marginBottom:2}}>
+            Estadísticas de postulaciones:
           </Typography>
-
         </Box>
         <Box component='div' sx={{display:'flex',alignItems:'center',justifyContent:'space-around',flexWrap:'wrap'
 
