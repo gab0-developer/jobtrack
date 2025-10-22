@@ -11,6 +11,7 @@ import Container from '@mui/material/Container'
 import Typography from "@mui/material/Typography";
 
 import { useNavigate } from "react-router-dom";
+import { showToast } from "../../utils/toast";
 
 type Props = {}
 
@@ -55,8 +56,11 @@ const Register = ({}: Props) => {
             if (error.response) {
                 const dataError = error.response
                 if (dataError.data.success === false) {
-                    
-                    console.log(dataError.data.message)
+                    showToast('error',`${dataError.data.message}`)
+                }
+                if (dataError.data.status === 401) {
+                    // Manejo de token expirado
+                    navigate('/login');
                 }
             }
         }
