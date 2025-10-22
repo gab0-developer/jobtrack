@@ -1,0 +1,104 @@
+/* 📌 BARRA LATERAL DE MENU */
+/* .MuiDrawer-docked {
+ max-width: 200px;
+}
+.MuiDrawer-docked .MuiDrawer-paper {
+  max-width: 200px;
+} */
+
+/* 📌 BARRA SUPERIOR */
+.MuiToolbar-root {
+  background-color: #ff303000 !important;
+}
+
+/* 📌 BARRA LATERAL DE NAVEGACION */
+.MuiDrawer-root {
+  background-color: #e2e2e21a !important;
+}
+/* quitamos la anchura fija */
+/* opcional, mantiene el comportamiento */
+/* .MuiDrawer-root.MuiDrawer-docked {
+
+  width: 6rem   !important;   
+  flex-shrink: 0;            
+} */
+
+
+
+/* 📌 Iconos del menú */
+/* .MuiIconButton-root {
+  color: #CF950B !important;
+} */
+
+/* 📌 Items de navegación seleccionados */
+.MuiListItemButton-root.Mui-selected {
+  background: #016b60d3 !important;
+  border: 1px solid #016b60d3 !important;
+  border-radius: 4px !important;
+}
+
+/* 📌 Items de navegación en hover */
+.MuiListItemButton-root:hover {
+  background: #016b60d3 !important;
+  border: 1px solid #016b60d3 !important;
+  border-radius: 4px !important;
+  color: #ffffffff !important;
+}
+
+/* 📌 Tipografía de los items */
+.MuiListItemButton-root .MuiTypography-root {
+  margin: 0 !important;
+  font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.00938em !important;
+}
+
+.MuiListItemButton-root.Mui-selected .MuiTypography-root {
+  font-size: 12px !important;
+  color: #ffffffff !important;
+  font-weight: 700 !important;
+}
+
+/* 📌 Iconos dentro de los items */
+.MuiListItemButton-root .MuiSvgIcon-root {
+  font-size: 1rem !important;
+  color: var(--mui-palette-action-active);
+}
+
+.MuiListItemButton-root.Mui-selected .MuiSvgIcon-root {
+  color: #fff !important;
+}
+
+.MuiListItemButton-root .MuiSvgIcon-root:hover {
+  color: #1A2246 !important;
+}
+
+/* 📌 Separación y redondeado de cada item */
+.MuiListItem-root {
+  margin-top: 8px !important;
+  border-radius: 4px !important;
+}
+
+/* 📌 Íconos dentro de ListItemIcon */
+.MuiListItemIcon-root {
+  background-color: #58caae81 !important;
+  border-radius: 50% !important;
+  min-width: 30px !important;
+  padding: 0.5rem !important;
+  color: #fff !important;
+}
+
+/* 📌 Ícono de notificación */
+.MuiIconButton-root[aria-label="notificaciones"] {
+  color: #CF950B !important;
+}
+
+
+/* 📌 Responsive: ocultar en móviles */
+/* @media (max-width: 900px) {
+  .MuiDrawer-docked {
+    display: none !important;
+  }
+} */
