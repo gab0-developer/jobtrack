@@ -3,7 +3,7 @@ import * as React from 'react';
 import RegisterJob from "./RegisterJob"
 
 import { useNavigate } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { regexPrimeraLetra } from "../../utils/regexPatterns";
 import { useEffect, useState } from "react";
@@ -100,6 +100,12 @@ const IndexJob = (props: Props) => {
 
   return (
     <>
+        <Container maxWidth="xl">
+            <Box component='div' sx={{marginTop:2, marginBottom:2}}>
+                <Typography variant='h4' >
+                    Postulaciones:
+                </Typography>
+            </Box>
          <React.Fragment>
                 <Dialog
                     open={openDialogDelete}
@@ -157,9 +163,9 @@ const IndexJob = (props: Props) => {
 
             <RegisterJob
                 refreshPostulations={refreshPostulations}
-             />
+            />
 
-            <Box component='div' sx={{display:'flex',alignItems:'center',justifyContent:'space-around',flexWrap:'wrap',marginY:2}}>
+            <Box component='div' sx={{display:'flex',alignItems:'center',justifyContent:'flex-start',flexWrap:'wrap',marginY:2, gap:2}}>
                 {postulations.length === 0 ? (
                      <Typography sx={{textAlign: 'center', marginTop: '20px' }}>No hay postulaciones registradas.</Typography>
                 ):(
@@ -177,6 +183,7 @@ const IndexJob = (props: Props) => {
                     ))
                 )}
             </Box>
+        </Container>
     </>
   )
 }
