@@ -6,7 +6,7 @@ import Dashboard from '../pages/Dashboard';
 // import Dashboard from './../templates/dashboard/Dashboard';
 import Register from '../pages/auth/Register';
 import Login from '../pages/auth/Login';
-import GlobalLayout from '../templates/dashboard/GlobalLayout';
+import GlobalLayout from '../templates/layout/GlobalLayout';
 import IndexJob from './../pages/job/IndexJob';
 
 const Rutas = () => {
