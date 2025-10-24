@@ -1,5 +1,5 @@
 import { useAuth } from '../../context/AuthContext';
-import { Outlet, useLocation,Link, useNavigate  } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate  } from 'react-router-dom';
 import * as React from 'react';
 import { Box, createTheme } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -13,12 +13,15 @@ import {
 import { DemoProvider } from '@toolpad/core/internal';
 import './layout.css'
 
+import { theme as customTheme } from '../../theme';
+import { deepmerge } from '@mui/utils';
+
 interface GlobalLayoutProps {
 //   children: React.ReactNode;
   window?: () => Window;
 }
 
-const demoTheme = createTheme({
+const demoTheme = createTheme(deepmerge(customTheme, {
   cssVariables: {
     colorSchemeSelector: 'data-toolpad-color-scheme',
   },
@@ -32,7 +35,7 @@ const demoTheme = createTheme({
       xl: 1536,
     },
   },
-});
+}));
 
 const GlobalLayout = ({ window }: GlobalLayoutProps) => {
   const { user, logout } = useAuth();

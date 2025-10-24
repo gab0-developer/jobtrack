@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Cards from '../components/Cards';
 import { getAxios } from '../hooks/axiosApi';
 import { useNavigate } from 'react-router-dom';
-import { Box,Container,Typography } from '@mui/material';
+import { Box,Container,Grid,Typography } from '@mui/material';
 
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
@@ -119,24 +119,30 @@ const Dashboard = ({}:Props) => {
           />
         </Box>
         <Box component='div' className='container-chartjs'>
-          <Box component='div' className='chartjs'>
-            <ChartBard 
-              titiledashboard="Total postulaciones anuales"
-              subtitledata="Cantidad de postulaciones"
-              labeldata={postulationYear}
-              datas={postulationCountYear} 
-              indexAxis="x"
-            />
-          </Box>
-          <Box component='div' className='chartjs'>
-            <ChartBard 
-              titiledashboard="Total postulaciones mensuales"
-              subtitledata="Cantidad de postulaciones"
-              labeldata={postulationMonth}
-              datas={postulationCountMonth} 
-              indexAxis="x"
-            />
-          </Box>
+          <Grid container spacing={2}>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box component='div' className='chartjs'>
+                <ChartBard 
+                  titiledashboard="Total postulaciones anuales"
+                  subtitledata="Cantidad de postulaciones"
+                  labeldata={postulationYear}
+                  datas={postulationCountYear} 
+                  indexAxis="x"
+                />
+              </Box>
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box component='div' className='chartjs'>
+                <ChartBard 
+                  titiledashboard="Total postulaciones mensuales"
+                  subtitledata="Cantidad de postulaciones"
+                  labeldata={postulationMonth}
+                  datas={postulationCountMonth} 
+                  indexAxis="x"
+                />
+              </Box>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     

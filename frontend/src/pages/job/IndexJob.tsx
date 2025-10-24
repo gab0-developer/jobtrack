@@ -47,7 +47,7 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-const IndexJob = (props: Props) => {
+const IndexJob = ({}: Props) => {
     
     const { user } = useAuth();
 

@@ -46,7 +46,7 @@ const RegisterJob = ({refreshPostulations}: Props) => {
   return (
     <>
     
-      <Button variant="contained" color="info" onClick={() => setOpen(true)}>
+      <Button variant="contained" sx={{background:'#016b60d3'}} onClick={() => setOpen(true)}>
         Registrar postulación
       </Button>
 
@@ -107,8 +107,8 @@ const RegisterJob = ({refreshPostulations}: Props) => {
               helperText={errors.link?.message}
             />
             <DialogActions>
-              <Button onClick={() => setOpen(false)} color="error">Cancelar</Button>
-              <Button type="submit" color="success">Guardar</Button>
+              <Button variant="contained" onClick={() => setOpen(false)} color="error">Cancelar</Button>
+              <Button variant="contained" type="submit" color="success">Guardar</Button>
             </DialogActions>
           </Box>
         </DialogContent>
